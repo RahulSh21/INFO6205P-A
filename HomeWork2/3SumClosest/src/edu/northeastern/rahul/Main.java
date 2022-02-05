@@ -10,7 +10,7 @@ class Solution {
             int p1=i+1, p2=nums.length-1;
             while(p1<p2){
                 int sum = nums[i]+nums[p1]+nums[p2];
-                if (Math.abs(sum - target) < Math.abs(ans - target)) {
+                if (Math.abs(sum - target) <= target) {
                     ans = sum;
                 }
 
