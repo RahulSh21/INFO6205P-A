@@ -19,7 +19,9 @@ class Solution {
         }
         result.add(nI);
 
-        while(i < n) result.add(intervals[i++]);
+        while(i < n) {
+            result.add(intervals[i++]);
+        }
 
         return result.toArray(new int[result.size()][2]);
 
