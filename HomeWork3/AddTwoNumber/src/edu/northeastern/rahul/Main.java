@@ -1,8 +1,8 @@
 package edu.northeastern.rahul;
 
-/**
+//**
  * Definition for singly-linked list.
- * public class ListNode {
+         * public class ListNode {
  *     int val;
  *     ListNode next;
  *     ListNode() {}
@@ -29,20 +29,18 @@ class Solution {
 
         while(p1 != null || p2 != null){
             int x = 0, y = 0;
-            if(p1.val != 0){
+            if(p1 != null){
                 x=p1.val;
+                p1 = p1.next;
             }
-            if(p2.val != 0){
+            if(p2 != null){
                 y=p2.val;
+                p2 = p2.next;
             }
             int sum = carry + x + y;
             carry = sum / 10;
             p3.next = new ListNode(sum % 10);
             p3 = p3.next;
-
-
-            p1 = p1.next;
-            p2 = p2.next;
         }
         if(carry > 0 ){
             p3.next = new ListNode(carry);
