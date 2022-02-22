@@ -1,56 +1,36 @@
 package edu.northeastern.rahul;
 
-public class Main {
-
-    public static void main(String[] args) {
-
-        ListNode result = new ListNode(0, head);
-        ListNode p1 = result;
-        ListNode p2 = head;
-        ListNode p3 = head.next;
-        int groupLength = 1;
-
-        while (true) {
-            if ((groupLength & 1) == 1) {
-                p1.next = head;
-                p1 = p2;
-            } else {
-                p2.next = null;
-                p1.next = reverse(head);
-
-                head.next = p3;
-                p1 = head;
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseEvenLengthGroups(ListNode head) {
+        ListNode p1 = head;
+        int group = 1;
+        while(p1 != null){
+            int count = 0;
+            ListNode start = p1;
+            Stack<Integer> stack = new Stack<>();
+            while(count != group && p1 != null){
+                stack.push(p1.val);
+                p1 = p1.next;
+                count++;
             }
-            if (p3 == null)
-                break;
-            head = p3;
-            var res = getTailAndLength(head, groupLength + 1);
-            p2 = res.getKey();
-            p3 = p2.next;
-            groupLength = res.getValue();
+            if(count%2 == 0){
+                while(start != p1){
+                    start.val = stack.pop();
+                    start = start.next;
+                }
+            }
+            group++;
         }
-
-        return result.next;
-    }
-
-    private Pair<ListNode, Integer> getTailAndLength(ListNode head, int groupLength) {
-        int length = 1;
-        ListNode end = head;
-        while (length < groupLength && end.next != null) {
-            end = end.next;
-            ++length;
-        }
-        return new Pair<>(end, length);
-    }
-
-    ListNode reverse(ListNode head) {
-        ListNode pre = null;
-        while (head != null) {
-            ListNode next = head.next;
-            head.next = pre;
-            pre = head;
-            head = next;
-        }
-        return pre;
+        return head;
     }
 }
