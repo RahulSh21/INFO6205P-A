@@ -1,51 +1,65 @@
 package edu.northeastern.rahul;
 
-public class Main {
+import java.util.PriorityQueue;
+import java.util.Queue;
 
-    static ArrayList<Integer> verticalOrder(Node root) {
-        //final list which will be returned
-        ArrayList<Integer> res = new ArrayList<>();
-        if (root == null) return res;
+class Solution{
+    public List<List<Integer>> verticalTraversal(TreeNode root)
 
-        Queue<Node> q = new LinkedList<>();
-        q.offer(root);
-        //map to track nodes for each HD
-        Map<Integer, List<Integer>> mp = new HashMap<>();
-        //index of each nodes stored in q(queues)
-        Queue<Integer> indices = new LinkedList<>();
-        indices.offer(0);
-        int minIndex = 0, maxIndex = 0;
+            Queue<Integer> queue = new PriorityQueue<>()
+        q.put([root,0,0])
+        nodes={}
+        Left,Right=0,0
 
-        while (!q.isEmpty()) {
-            int size = q.size();
-            for (int i = 0; i < size; i++) {
-                Node node = q.poll();
-                int index = indices.poll();
+        #BFS Traversal
+        while(not(q.empty())):
+        p=q.get()
+        node=p[0]
+        x=p[1]
+        y=p[2]
 
-                mp.putIfAbsent(index, new ArrayList<>());
-                mp.get(index)
-                        .add(node.data);
 
-                if (node.left != null) {
-                    q.offer(node.left);
-                    indices.offer(index - 1);
-                    minIndex = Math.min(minIndex, index - 1);
-                }
 
-                if (node.right != null) {
-                    q.offer(node.right);
-                    indices.offer(index + 1);
-                    maxIndex = Math.max(maxIndex, index + 1);
-                }
-        
-        for (int i = minIndex; i <= maxIndex; i++) { //Collections.sort(mp.get(i));
-            int size = mp.get(i)
-                    .size();
-            for (int ii = 0; ii < size; ii++)
-                res.add(mp.get(i)
-                        .get(ii));
-        }
-        //final list containing number of nodes traversed in Vertical Order
-        return res;
-    }
+        Left,Right=min(Left,x),max(Right,x)
+
+
+        if nodes.get(x,-1)==-1:
+        nodes[x]={}
+
+
+        if nodes[x].get(y,-1)!=-1:
+        nodes[x][y].append(node.val)
+        nodes[x][y]=sorted(nodes[x][y])
+
+        else:
+        nodes[x][y]=[node.val]
+
+
+        if node.left!=None:
+        q.put([node.left,x-1,y+1])
+
+
+        if node.right!=None:
+        q.put([node.right,x+1,y+1])
+
+
+        diff=abs(Left)
+
+
+        totalValues=abs(Left)+Right+1
+
+
+        ans=[[] for i in range(totalValues)]
+
+
+        for i in nodes:
+        for j in nodes[i]:
+
+
+        ans[i+diff]+=nodes[i][j]
+
+        #Returning Output List
+        return ans
+
+
 }
