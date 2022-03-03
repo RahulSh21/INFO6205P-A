@@ -1,65 +1,46 @@
 package edu.northeastern.rahul;
 
-import java.util.PriorityQueue;
-import java.util.Queue;
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
 
-class Solution{
-    public List<List<Integer>> verticalTraversal(TreeNode root)
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        TreeMap<Integer, List<int[]>> xToSortedPairs = new TreeMap<>(); // {x: {(-y, val)}}
 
-            Queue<Integer> queue = new PriorityQueue<>()
-        q.put([root,0,0])
-        nodes={}
-        Left,Right=0,0
+        verticalTraversal(root, 0, 0, xToSortedPairs);
 
-        #BFS Traversal
-        while(not(q.empty())):
-        p=q.get()
-        node=p[0]
-        x=p[1]
-        y=p[2]
+        for (List<int[]> pairs : xToSortedPairs.values()) {
+            Collections.sort(pairs, (a, b) -> a[0] == b[0] ? a[1] - b[1] : a[0] - b[0]);
+            List<Integer> vals = new ArrayList<>();
+            for (int[] pair : pairs)
+                vals.add(pair[1]);
+            result.add(vals);
+        }
 
+        return result;
+    }
 
+    private void verticalTraversal(TreeNode root, int x, int y, TreeMap<Integer, List<int[]>> xToSortedPairs) {
+        if (root == null)
+            return;
 
-        Left,Right=min(Left,x),max(Right,x)
-
-
-        if nodes.get(x,-1)==-1:
-        nodes[x]={}
-
-
-        if nodes[x].get(y,-1)!=-1:
-        nodes[x][y].append(node.val)
-        nodes[x][y]=sorted(nodes[x][y])
-
-        else:
-        nodes[x][y]=[node.val]
-
-
-        if node.left!=None:
-        q.put([node.left,x-1,y+1])
-
-
-        if node.right!=None:
-        q.put([node.right,x+1,y+1])
-
-
-        diff=abs(Left)
-
-
-        totalValues=abs(Left)+Right+1
-
-
-        ans=[[] for i in range(totalValues)]
-
-
-        for i in nodes:
-        for j in nodes[i]:
-
-
-        ans[i+diff]+=nodes[i][j]
-
-        #Returning Output List
-        return ans
-
-
+        xToSortedPairs.putIfAbsent(x, new ArrayList<>());
+        xToSortedPairs.get(x).add(new int[] {y, root.val});
+        verticalTraversal(root.left, x - 1, y + 1, xToSortedPairs);
+        verticalTraversal(root.right, x + 1, y + 1, xToSortedPairs);
+    }
 }
