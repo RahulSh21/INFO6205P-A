@@ -1,11 +1,11 @@
 package edu.northeastern.rahul;
 
-public class Tree {
+public class Node {
     public int data;
-    public Tree left;
-    public Tree right;
+    public Node left;
+    public Node right;
 
-    Tree(int data){
+    public Node(int data){
         this.data = data;
     }
 }
