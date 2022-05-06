@@ -6,12 +6,6 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        String inputString = "aabcccccaaa";
-        String inputString1 = "ab";
-        String output = "a2b1c5a3";
-        System.out.println(compressString(inputString));
-        System.out.println(compressString(inputString1));
-
     }
 
     public static String compressString(String str) {
