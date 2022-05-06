@@ -2,9 +2,7 @@ package edu.northeastern.rahul;
 
 public class Main {
 
-    public static void main(String[] args) {
-	// write your code here
-    }
+
 
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root.val > Math.max(p.val, q.val))
